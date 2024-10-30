@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashank Mohan Pandey - Portfolio</title>
+    <meta name="description" content="Personal portfolio of Shashank Mohan Pandey">
+    <link rel="icon" href="/favicon.ico">
+    <style>
+        /* Base styles */
+        :root {
+            --purple: #9333ea;
+            --pink: #db2777;
+            --gray-50: #f9fafb;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--gray-900);
+            min-height: 100vh;
+            background: white;
+        }
+
+        body.dark-mode {
+            background: var(--gray-900);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.875rem, 4vw, 2.25rem);
+            font-weight: bold;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Sections */
+        .section {
+            margin: 5rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-content {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            color: var(--gray-600);
+            max-width: 42rem;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Cards */
+        .content-card {
+            background: var(--gray-50);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .content-card {
+            background: var(--gray-800);
+        }
+
+        /* Grids */
+        .info-grid, .traits-grid, .friends-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .info-grid, .traits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .friends-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Friend Cards */
+        .friend-card {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .friend-card {
+            background: var(--gray-800);
+        }
+
+        .friend-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .friend-name {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .friend-link {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        /* Contact Section */
+        .contact-description {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(to right, var(--purple), var(--pink));
+            color: white;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .contact-button:hover {
+            opacity: 0.9;
+        }
+
+        .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--gray-200);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--gray-600);
+        }
+
+        .dark-mode footer {
+            border-color: var(--gray-800);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark mode adjustments */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: var(--gray-900);
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white dark-mode">
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="fade-in">
+                <h1 class="gradient-text">Shashank Mohan Pandey</h1>
+                <p class="hero-description">
+                    B.Pharmacy student at AKS University, Satna, with a passion for knowledge and meaningful conversations
+                </p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section fade-in-scroll" id="about">
+            <div class="section-content">
+                <h2>About Me</h2>
+                <div class="content-card">
+                    <p class="text-lg">
+                        Born on July 29, 2003, in Sakaldiha, Uttar Pradesh, I now call Maihar, Madhya Pradesh my home. 
+                        I'm currently in my final year of B.Pharmacy at AKS University, Satna, working towards my future 
+                        in the pharmaceutical world.
+                    </p>
+                    <div class="info-grid">
+                        <div>
+                            <p class="font-medium">Hometown:</p>
+                            <p>Maihar, Madhya Pradesh</p>
+                        </div>
+                        <div>
+                            <p class="font-medium">Family:</p>
+                            <p>A close family of four - living with my parents and younger brother</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personality & Interests -->
+        <section class="section fade-in-scroll">
+            <div class="section-content">
+                <h2>Personality & Interests</h2>
+                <div class="traits-grid">
+                    <div class="content-card">
+                        <h3>Personality Traits</h3>
+                        <ul>
+                            <li>• Straightforward and logical</li>
+                            <li>• Honest and loyal</li>
+                            <li>• Curious minded</li>
+                            <li>• Known for dry humor</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h3>Favorite Pastimes</h3>
+                        <ul>
+                            <li>• Exploring Reddit</li>
+                            <li>• Reading Quora threads</li>
+                            <li>• YouTube binge-watching</li>
+                            <li>• Gaining new knowledge</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Friends Section -->
+        <section class="section fade-in-scroll">
+            <div class="section-content">
+                <h2>My Inner Circle</h2>
+                <div class="friends-grid">
+                    <a href="https://www.instagram.com/anmol.maihar?igsh=Z256YXNqd2M5ZWo3" target="_blank" rel="noopener noreferrer" class="friend-card">
+                        <p class="friend-name">Anmol</p>
+                        <p class="friend-link">View Instagram Profile</p>
+                    </a>
+                    <a href="https://www.instagram.com/amanrajak30?igsh=MTFmdzNnbnZwcnF1bA==" target="_blank" rel="noopener noreferrer" class="friend-card">
+                        <p class="friend-name">Aman</p>
+                        <p class="friend-link">View Instagram Profile</p>
+                    </a>
+                    <a href="https://www.instagram.com/dubey_ji_maihar?igsh=a3Z4bWt4MW02djVj" target="_blank" rel="noopener noreferrer" class="friend-card">
+                        <p class="friend-name">Rahul</p>
+                        <p class="friend-link">View Instagram Profile</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in-scroll">
+            <div class="section-content text-center">
+                <h2>Let's Connect</h2>
+                <p class="contact-description">
+                    If you're up for a conversation, want to discuss big ideas, or have an opportunity in mind, drop me a line!
+                </p>
+                <div class="contact-buttons">
+                    <a href="mailto:shashankmohanp@gmail.com" class="contact-button">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Email Me
+                    </a>
+                    <a href="tel:+917225941667" class="contact-button">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        Call Me
+                    </a>
+                    <a href="https://www.instagram.com/mm_shashank/profilecard/?igsh=MWEyY3cwYng0NGU1cw==" target="_blank" rel="noopener noreferrer" class="contact-button">
+                        Instagram
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Shashank Mohan Pandey. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Dark mode detection and handling
+        function updateDarkMode() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+
+        // Initial dark mode check
+        updateDarkMode();
+
+        // Listen for system dark mode changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateDarkMode);
+    </script>
+</body>
+</html>
